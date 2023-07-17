@@ -11,7 +11,7 @@ import com.example.nweave_project.source.local.ProductDatabase
 
 class ProductAdapter(
     private val data :ArrayList<ProductDatabase>,
-    val onSelectedItem: (Data:ProductDatabase) -> Unit,
+    val onSelectedItem: (DataPosition:Int) -> Unit,
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     var adapterData = data
@@ -44,7 +44,7 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.setData(adapterData[position])
         holder.itemView.rootView.setOnClickListener {
-            onSelectedItem(adapterData[position])
+            onSelectedItem(position)
         }
 
     }

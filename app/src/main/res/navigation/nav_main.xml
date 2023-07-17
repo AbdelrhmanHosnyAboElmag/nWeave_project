@@ -15,5 +15,10 @@
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.example.nweave_project.ui.fragment.ProductDetailFragment"
-        android:label="ProductDetailFragment" />
+        android:label="ProductDetailFragment" >
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

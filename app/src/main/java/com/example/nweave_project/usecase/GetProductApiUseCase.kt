@@ -19,12 +19,5 @@ class GetProductUseCase @Inject constructor(
         }
     }
 
-    suspend  fun getProductFromDatabase(): DataResult<MutableList<ProductDatabase>> {
-        return try {
-            DataResult.success(productRepository.getProductDatabase())
-        }catch (e:Exception){
-            DataResult.error(e)
-        }
-    }
 
 }

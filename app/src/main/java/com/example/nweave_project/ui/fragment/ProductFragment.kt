@@ -3,6 +3,7 @@ package com.example.nweave_project.ui.fragment
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.nweave_project.adapter.ProductAdapter
 import com.example.nweave_project.base.BaseFragment
 import com.example.nweave_project.databinding.FragmentProductBinding
@@ -10,7 +11,9 @@ import com.example.nweave_project.mvvm.ProductViewModel
 import com.example.nweave_project.source.local.ProductDatabase
 import com.example.nweave_project.utils.Status
 import com.example.nweave_project.utils.observeEvent
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductFragment: BaseFragment<FragmentProductBinding>(FragmentProductBinding::inflate) {
     override val _viewModel: ProductViewModel by activityViewModels()
     private lateinit var productAdapter: ProductAdapter
@@ -69,6 +72,7 @@ class ProductFragment: BaseFragment<FragmentProductBinding>(FragmentProductBindi
         productAdapter = ProductAdapter(
             data as ArrayList<ProductDatabase>
         ){
+            _viewModel.navigateTo(ProductFragmentDirections.actionProductFragmentToProductDetailFragment(it))
 
         }
         binding.rvProduct.adapter = productAdapter
