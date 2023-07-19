@@ -11,6 +11,7 @@ import com.example.nweave_project.base.BaseFragment
 import com.example.nweave_project.databinding.FragmentProductBinding
 import com.example.nweave_project.mvvm.ProductViewModel
 import com.example.nweave_project.source.local.ProductDatabase
+import com.example.nweave_project.utils.NetworkUtils
 import com.example.nweave_project.utils.Status
 import com.example.nweave_project.utils.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +26,13 @@ class ProductFragment: BaseFragment<FragmentProductBinding>(FragmentProductBindi
     }
 
     override fun fragmentVisible() {
-        callApi()
+        if(NetworkUtils(requireContext()).isOnline){
+            Log.d("sssssw", "fragmentVisible:1 ")
+            callApi()
+        }else{
+            Log.d("sssssw", "fragmentVisible:2 ")
+            callDataBase()
+        }
         observeViewModel()
     }
 
@@ -36,6 +43,10 @@ class ProductFragment: BaseFragment<FragmentProductBinding>(FragmentProductBindi
 
     private fun callApi(){
         _viewModel.loadProductsFromApi()
+    }
+
+    private fun callDataBase(){
+        _viewModel.loadProductsFromDataBase()
     }
     private fun observeViewModel(){
         _viewModel.products.observeEvent(viewLifecycleOwner) { result ->

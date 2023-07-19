@@ -3,10 +3,18 @@ package com.example.nweave_project.utils
 import android.content.Context
 import android.net.ConnectivityManager
 
-class NetworkUtils(private val context: Context) {
-    fun isNetworkAvailable(): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+
+class NetworkUtils(context: Context) {
+    private val connectivityManager: ConnectivityManager
+
+    init {
+        connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
+
+    val isOnline: Boolean
+        get() {
+            val activeNetwork = connectivityManager.activeNetworkInfo
+            return activeNetwork != null && activeNetwork.isConnected
+        }
 }
