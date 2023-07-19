@@ -1,9 +1,11 @@
 package com.example.nweave_project.ui.fragment
 
+import android.content.res.Configuration
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.example.nweave_project.R
 import com.example.nweave_project.adapter.ProductAdapter
 import com.example.nweave_project.base.BaseFragment
 import com.example.nweave_project.databinding.FragmentProductBinding
@@ -30,6 +32,8 @@ class ProductFragment: BaseFragment<FragmentProductBinding>(FragmentProductBindi
     override fun fragmentFocus() {
 
     }
+
+
     private fun callApi(){
         _viewModel.loadProductsFromApi()
     }
@@ -37,7 +41,6 @@ class ProductFragment: BaseFragment<FragmentProductBinding>(FragmentProductBindi
         _viewModel.products.observeEvent(viewLifecycleOwner) { result ->
             when (result.status) {
                 Status.LOADING->{
-                    Log.d("rrrrsaa", "onResume: 1")
                 }
                 Status.LOADING_MORE->{
 
@@ -59,7 +62,9 @@ class ProductFragment: BaseFragment<FragmentProductBinding>(FragmentProductBindi
 
                 }
                 Status.SUCCESS->{
-                    setupAdapter(result.data)
+                    if(!result.data.isNullOrEmpty()){
+                        setupAdapter(result.data)
+                    }
                 }
                 else ->{
                     Toast.makeText(requireContext(), "Error occurred:${result.exception?.message}", Toast.LENGTH_SHORT).show()

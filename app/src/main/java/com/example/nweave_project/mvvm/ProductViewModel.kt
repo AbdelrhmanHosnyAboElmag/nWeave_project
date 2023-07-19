@@ -20,6 +20,7 @@ import javax.inject.Inject
 class ProductViewModel @Inject constructor(private val getProductUseCaseApi: GetProductUseCase,private val getProductUseCaseDataBase: GetProductDataBaseUseCase
 ): BaseViewModel() {
 
+
     private val _products = MutableLiveData<Event<DataResult<MutableList<ProductModelItem>>>>()
     val products: LiveData<Event<DataResult<MutableList<ProductModelItem>>>>
         get() = _products
